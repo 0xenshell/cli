@@ -6,6 +6,8 @@ import { inspectCommand } from "./commands/inspect.js";
 import { submitCommand } from "./commands/submit.js";
 import { approveCommand } from "./commands/approve.js";
 import { rejectCommand } from "./commands/reject.js";
+import { deactivateCommand } from "./commands/deactivate.js";
+import { reactivateCommand } from "./commands/reactivate.js";
 
 const program = new Command();
 
@@ -20,5 +22,7 @@ program.addCommand(inspectCommand);
 program.addCommand(submitCommand);
 program.addCommand(approveCommand);
 program.addCommand(rejectCommand);
+program.addCommand(deactivateCommand);
+program.addCommand(reactivateCommand);
 
 program.parse();
