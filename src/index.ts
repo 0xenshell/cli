@@ -3,6 +3,7 @@ import { Command } from "commander";
 import { registerCommand } from "./commands/register.js";
 import { listCommand } from "./commands/list.js";
 import { inspectCommand } from "./commands/inspect.js";
+import { submitCommand } from "./commands/submit.js";
 
 const program = new Command();
 
@@ -14,5 +15,6 @@ program
 program.addCommand(registerCommand);
 program.addCommand(listCommand);
 program.addCommand(inspectCommand);
+program.addCommand(submitCommand);
 
 program.parse();
