@@ -5,6 +5,7 @@ import { listCommand } from "./commands/list.js";
 import { inspectCommand } from "./commands/inspect.js";
 import { submitCommand } from "./commands/submit.js";
 import { approveCommand } from "./commands/approve.js";
+import { rejectCommand } from "./commands/reject.js";
 
 const program = new Command();
 
@@ -18,5 +19,6 @@ program.addCommand(listCommand);
 program.addCommand(inspectCommand);
 program.addCommand(submitCommand);
 program.addCommand(approveCommand);
+program.addCommand(rejectCommand);
 
 program.parse();
