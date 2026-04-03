@@ -13,8 +13,7 @@ describe("commands", () => {
     expect(registerCommand.name()).toBe("register");
     const opts = registerCommand.options.map((o) => o.long);
     expect(opts).toContain("--id");
-    expect(opts).toContain("--address");
-    expect(opts).toContain("--ens-node");
+    expect(opts).toContain("--agent-wallet");
     expect(opts).toContain("--spend-limit");
   });
 

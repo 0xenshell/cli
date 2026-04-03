@@ -2,13 +2,13 @@ import { Command } from "commander";
 import { parseEther } from "ethers";
 import chalk from "chalk";
 import ora from "ora";
+import { computeEnsNode, Network } from "@enshell/sdk";
 import { getContract } from "../config.js";
 
 export const registerCommand = new Command("register")
   .description("Register a new AI agent on the firewall")
-  .requiredOption("--id <agentId>", "Unique agent identifier")
-  .requiredOption("--address <address>", "Agent wallet address")
-  .requiredOption("--ens-node <ensNode>", "ENS node (bytes32 hash)")
+  .requiredOption("--id <agentId>", "Unique agent identifier (becomes <id>.enshell.eth)")
+  .requiredOption("--agent-wallet <address>", "Agent's wallet address")
   .requiredOption("--spend-limit <limit>", "Spend limit in ETH")
   .option("--targets <addresses...>", "Allowed target addresses")
   .action(async (opts) => {
@@ -16,11 +16,12 @@ export const registerCommand = new Command("register")
 
     try {
       const contract = getContract();
+      const ensNode = computeEnsNode(opts.id, Network.SEPOLIA);
 
       const tx = await contract.registerAgentSimple(
         opts.id,
-        opts.ensNode,
-        opts.address,
+        ensNode,
+        opts.agentWallet,
         parseEther(opts.spendLimit),
       );
 
@@ -28,7 +29,7 @@ export const registerCommand = new Command("register")
       const receipt = await tx.wait();
 
       spinner.succeed(
-        chalk.green(`Agent "${opts.id}" registered (tx: ${receipt.hash})`),
+        chalk.green(`Agent "${opts.id}" registered as ${opts.id}.enshell.eth (tx: ${receipt.hash})`),
       );
 
       if (opts.targets && opts.targets.length > 0) {
