@@ -11,8 +11,6 @@ export const registerCommand = new Command("register")
   .requiredOption("--spend-limit <limit>", "Spend limit in ETH")
   .option("--targets <addresses...>", "Allowed target addresses")
   .action(async (opts) => {
-    const spinner = ora("Creating ENS subdomain and registering agent...").start();
-
     try {
       const client = new ENShell({
         network: Network.SEPOLIA,
@@ -20,17 +18,21 @@ export const registerCommand = new Command("register")
         contractAddress: getContractAddress(),
       });
 
-      await client.registerAgent(opts.id, {
+      // Step 1: Create ENS subdomain
+      const ensSpinner = ora(`Creating ENS subdomain ${opts.id}.enshell.eth...`).start();
+      await client.createAgentSubdomain(opts.id);
+      ensSpinner.succeed(chalk.green(`ENS subdomain ${opts.id}.enshell.eth created`));
+
+      // Step 2: Register on firewall
+      const fwSpinner = ora("Registering agent on ENShell Firewall...").start();
+      await client.registerAgentOnChain(opts.id, {
         agentAddress: opts.agentWallet,
         spendLimit: opts.spendLimit,
         allowedTargets: opts.targets,
       });
-
-      spinner.succeed(
-        chalk.green(`Agent "${opts.id}" registered as ${opts.id}.enshell.eth`),
-      );
+      fwSpinner.succeed(chalk.green(`Agent "${opts.id}" registered on firewall`));
     } catch (err: any) {
-      spinner.fail(chalk.red(`Registration failed: ${err.message}`));
+      console.error(chalk.red(`\nRegistration failed: ${err.message}`));
       process.exit(1);
     }
   });
