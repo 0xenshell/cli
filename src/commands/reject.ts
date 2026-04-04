@@ -2,7 +2,7 @@ import { Command } from "commander";
 import chalk from "chalk";
 import ora from "ora";
 import { ENShell, Network } from "@enshell/sdk";
-import { getSigner, getContractAddress } from "../config.js";
+import { getSigner } from "../config.js";
 
 export const rejectCommand = new Command("reject")
   .description("Reject a queued action")
@@ -15,7 +15,6 @@ export const rejectCommand = new Command("reject")
       const client = new ENShell({
         network: Network.SEPOLIA,
         signer,
-        contractAddress: getContractAddress(),
       });
 
       const { txHash } = await client.rejectAction(BigInt(opts.actionId));

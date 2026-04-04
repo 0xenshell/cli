@@ -3,7 +3,7 @@ import { keccak256, toUtf8Bytes } from "ethers";
 import chalk from "chalk";
 import ora from "ora";
 import { ENShell, Network } from "@enshell/sdk";
-import { getSigner, getContractAddress } from "../config.js";
+import { getSigner } from "../config.js";
 
 export const submitCommand = new Command("submit")
   .description("Submit an action through the firewall (queued for CRE analysis)")
@@ -20,7 +20,6 @@ export const submitCommand = new Command("submit")
       const client = new ENShell({
         network: Network.SEPOLIA,
         signer,
-        contractAddress: getContractAddress(),
       });
 
       const instructionHash = keccak256(toUtf8Bytes(opts.instruction));

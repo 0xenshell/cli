@@ -2,7 +2,7 @@ import { Command } from "commander";
 import chalk from "chalk";
 import ora from "ora";
 import { ENShell, Network, ActionDecision } from "@enshell/sdk";
-import { getSigner, getContractAddress } from "../config.js";
+import { getSigner } from "../config.js";
 
 export const protectCommand = new Command("protect")
   .description("Submit an action through the ENShell firewall with encryption and relay")
@@ -17,7 +17,6 @@ export const protectCommand = new Command("protect")
       const client = new ENShell({
         network: Network.SEPOLIA,
         signer,
-        contractAddress: getContractAddress(),
       });
 
       // Step 1: Encrypt + relay + submit

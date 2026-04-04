@@ -2,7 +2,7 @@ import { Command } from "commander";
 import chalk from "chalk";
 import ora from "ora";
 import { ENShell, Network } from "@enshell/sdk";
-import { getSigner, getContractAddress } from "../config.js";
+import { getSigner } from "../config.js";
 
 export const reactivateCommand = new Command("reactivate")
   .description("Reactivate a frozen agent")
@@ -15,7 +15,6 @@ export const reactivateCommand = new Command("reactivate")
       const client = new ENShell({
         network: Network.SEPOLIA,
         signer,
-        contractAddress: getContractAddress(),
       });
 
       const { txHash } = await client.reactivateAgent(opts.id);

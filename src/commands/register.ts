@@ -2,7 +2,7 @@ import { Command } from "commander";
 import chalk from "chalk";
 import ora from "ora";
 import { ENShell, Network } from "@enshell/sdk";
-import { getSigner, getContractAddress } from "../config.js";
+import { getSigner } from "../config.js";
 
 export const registerCommand = new Command("register")
   .description("Register a new AI agent on the firewall")
@@ -16,7 +16,6 @@ export const registerCommand = new Command("register")
       const client = new ENShell({
         network: Network.SEPOLIA,
         signer,
-        contractAddress: getContractAddress(),
       });
 
       // Step 1: Create ENS subdomain

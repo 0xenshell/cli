@@ -2,7 +2,7 @@ import { Command } from "commander";
 import chalk from "chalk";
 import ora from "ora";
 import { ENShell, Network } from "@enshell/sdk";
-import { getSigner, getContractAddress } from "../config.js";
+import { getSigner } from "../config.js";
 
 export const deactivateCommand = new Command("deactivate")
   .description("Deactivate (freeze) an agent")
@@ -15,7 +15,6 @@ export const deactivateCommand = new Command("deactivate")
       const client = new ENShell({
         network: Network.SEPOLIA,
         signer,
-        contractAddress: getContractAddress(),
       });
 
       const { txHash } = await client.deactivateAgent(opts.id);
