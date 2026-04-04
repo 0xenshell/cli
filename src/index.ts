@@ -1,6 +1,10 @@
 #!/usr/bin/env node
+import { createRequire } from "node:module";
 import { Command } from "commander";
 import { setWalletMode } from "./config.js";
+
+const require = createRequire(import.meta.url);
+const pkg = require("../package.json");
 import type { WalletMode } from "./wallets/index.js";
 import { registerCommand } from "./commands/register.js";
 import { listCommand } from "./commands/list.js";
@@ -19,7 +23,7 @@ const program = new Command();
 program
   .name("enshell")
   .description("CLI for ENShell on-chain AI agent firewall")
-  .version("0.1.0")
+  .version(pkg.version)
   .option(
     "--wallet <mode>",
     "Wallet mode: env (private key) or ledger (USB)",
