@@ -31,7 +31,7 @@ export async function getSigner(): Promise<Signer> {
 export function getContractAddress(): string {
   const addr = process.env.ENSHELL_CONTRACT_ADDRESS;
   if (!addr)
-    return "0xf78910b66AE2f7E33038578e1500b157776a0597"; // Sepolia default
+    return "0x3886791bd82ff55294FaaEcCe3624A2376978dB2"; // Sepolia default
   return addr;
 }
 
