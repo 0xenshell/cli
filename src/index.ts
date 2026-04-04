@@ -43,4 +43,4 @@ program.addCommand(deactivateCommand);
 program.addCommand(reactivateCommand);
 program.addCommand(protectCommand);
 
-program.parse();
+program.parseAsync().then(() => process.exit(0));
