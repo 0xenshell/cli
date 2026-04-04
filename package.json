@@ -1,6 +1,6 @@
 {
   "name": "@enshell/cli",
-  "version": "0.1.0",
+  "version": "0.1.0-beta.1",
   "type": "module",
   "bin": {
     "enshell": "dist/index.js"
@@ -31,5 +31,8 @@
     "@vitest/coverage-v8": "^4.1.2",
     "typescript": "~5.8.0",
     "vitest": "^4.1.2"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
