@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import { Command } from "commander";
-import { setWalletMode, type WalletMode } from "./wallets/index.js";
+import { setWalletMode } from "./config.js";
+import type { WalletMode } from "./wallets/index.js";
 import { registerCommand } from "./commands/register.js";
 import { listCommand } from "./commands/list.js";
 import { inspectCommand } from "./commands/inspect.js";

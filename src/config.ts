@@ -1,5 +1,6 @@
 import "dotenv/config";
 import { JsonRpcProvider, Signer } from "ethers";
+import { getFirewallContract } from "@enshell/sdk";
 import { resolveSigner, WalletMode } from "./wallets/index.js";
 
 /** Global wallet mode — set by --wallet flag in index.ts */
@@ -27,4 +28,9 @@ export function getContractAddress(): string {
   if (!addr)
     return "0xeb91387Ea4B7ADF8fA4901B22B2B72d7c54cbF13"; // Sepolia default
   return addr;
+}
+
+/** Read-only contract instance (no signer needed). */
+export function getContract() {
+  return getFirewallContract(getContractAddress(), getProvider());
 }

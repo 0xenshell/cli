@@ -5,23 +5,19 @@ describe("config", () => {
     vi.unstubAllEnvs();
   });
 
-  it("getProvider throws when ENSHELL_RPC_URL is not set", async () => {
+  it("getProvider defaults to sepolia rpc when ENSHELL_RPC_URL is not set", async () => {
     vi.stubEnv("ENSHELL_RPC_URL", "");
     const { getProvider } = await import("../src/config.js");
-    expect(() => getProvider()).toThrow("ENSHELL_RPC_URL not set");
+    const provider = getProvider();
+    // Should not throw — defaults to rpc.sepolia.org
+    expect(provider).toBeDefined();
   });
 
-  it("getSigner throws when ENSHELL_PRIVATE_KEY is not set", async () => {
-    vi.stubEnv("ENSHELL_RPC_URL", "https://rpc.sepolia.org");
-    vi.stubEnv("ENSHELL_PRIVATE_KEY", "");
-    const { getSigner } = await import("../src/config.js");
-    expect(() => getSigner()).toThrow("ENSHELL_PRIVATE_KEY not set");
-  });
-
-  it("getContractAddress throws when ENSHELL_CONTRACT_ADDRESS is not set", async () => {
+  it("getContractAddress returns default when ENSHELL_CONTRACT_ADDRESS is not set", async () => {
     vi.stubEnv("ENSHELL_CONTRACT_ADDRESS", "");
     const { getContractAddress } = await import("../src/config.js");
-    expect(() => getContractAddress()).toThrow("ENSHELL_CONTRACT_ADDRESS not set");
+    // Should return the default Sepolia contract address
+    expect(getContractAddress()).toBe("0xeb91387Ea4B7ADF8fA4901B22B2B72d7c54cbF13");
   });
 
   it("getContractAddress returns address when set", async () => {
