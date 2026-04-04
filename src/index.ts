@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import { Command } from "commander";
+import { setWalletMode, type WalletMode } from "./wallets/index.js";
 import { registerCommand } from "./commands/register.js";
 import { listCommand } from "./commands/list.js";
 import { inspectCommand } from "./commands/inspect.js";
@@ -9,14 +10,28 @@ import { rejectCommand } from "./commands/reject.js";
 import { deactivateCommand } from "./commands/deactivate.js";
 import { reactivateCommand } from "./commands/reactivate.js";
 import { protectCommand } from "./commands/protect.js";
+import { connectCommand } from "./commands/connect.js";
+import { disconnectCommand } from "./commands/disconnect.js";
 
 const program = new Command();
 
 program
   .name("enshell")
   .description("CLI for ENShell on-chain AI agent firewall")
-  .version("0.1.0");
+  .version("0.1.0")
+  .option(
+    "--wallet <mode>",
+    "Wallet mode: env (private key) or ledger (USB)",
+  )
+  .hook("preAction", (thisCommand) => {
+    const opts = thisCommand.opts();
+    if (opts.wallet) {
+      setWalletMode(opts.wallet as WalletMode);
+    }
+  });
 
+program.addCommand(connectCommand);
+program.addCommand(disconnectCommand);
 program.addCommand(registerCommand);
 program.addCommand(listCommand);
 program.addCommand(inspectCommand);
