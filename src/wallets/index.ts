@@ -11,10 +11,10 @@ export type WalletMode = "walletconnect" | "env" | "ledger";
  * --wallet env: Private key from .env
  * --wallet ledger: Ledger USB (not yet implemented)
  */
-export async function resolveSigner(mode: WalletMode): Promise<Signer> {
+export async function resolveSigner(mode: WalletMode, keyName?: string): Promise<Signer> {
   switch (mode) {
     case "env":
-      return envGetSigner();
+      return envGetSigner(keyName);
 
     case "walletconnect":
       return wcGetSigner();

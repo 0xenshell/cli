@@ -5,6 +5,7 @@ import { resolveSigner, WalletMode } from "./wallets/index.js";
 
 /** Global wallet mode — set by --wallet flag in index.ts */
 let _walletMode: WalletMode = "walletconnect";
+let _keyName: string | undefined;
 
 export function setWalletMode(mode: WalletMode): void {
   _walletMode = mode;
@@ -12,6 +13,14 @@ export function setWalletMode(mode: WalletMode): void {
 
 export function getWalletMode(): WalletMode {
   return _walletMode;
+}
+
+export function setKeyName(name: string | undefined): void {
+  _keyName = name;
+}
+
+export function getKeyName(): string | undefined {
+  return _keyName;
 }
 
 /** Returns a hint string for commands when wallet approval is needed. */
@@ -25,7 +34,7 @@ export function getProvider(): JsonRpcProvider {
 }
 
 export async function getSigner(): Promise<Signer> {
-  return resolveSigner(_walletMode);
+  return resolveSigner(_walletMode, _keyName);
 }
 
 export function getContractAddress(): string {

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import { createRequire } from "node:module";
 import { Command } from "commander";
-import { setWalletMode } from "./config.js";
+import { setWalletMode, setKeyName } from "./config.js";
 
 const require = createRequire(import.meta.url);
 const pkg = require("../package.json");
@@ -28,10 +28,17 @@ program
     "--wallet <mode>",
     "Wallet mode: env (private key) or ledger (USB)",
   )
+  .option(
+    "--key <name>",
+    "Named key for env mode (reads ENSHELL_PRIVATE_KEY_<NAME>)",
+  )
   .hook("preAction", (thisCommand) => {
     const opts = thisCommand.opts();
     if (opts.wallet) {
       setWalletMode(opts.wallet as WalletMode);
+    }
+    if (opts.key) {
+      setKeyName(opts.key);
     }
   });
 
