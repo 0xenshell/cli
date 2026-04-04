@@ -7,6 +7,7 @@ import { approveCommand } from "../src/commands/approve.js";
 import { rejectCommand } from "../src/commands/reject.js";
 import { deactivateCommand } from "../src/commands/deactivate.js";
 import { reactivateCommand } from "../src/commands/reactivate.js";
+import { protectCommand } from "../src/commands/protect.js";
 
 describe("commands", () => {
   it("register command has correct name and required options", () => {
@@ -58,5 +59,14 @@ describe("commands", () => {
     expect(reactivateCommand.name()).toBe("reactivate");
     const opts = reactivateCommand.options.map((o) => o.long);
     expect(opts).toContain("--id");
+  });
+
+  it("protect command has correct name and required options", () => {
+    expect(protectCommand.name()).toBe("protect");
+    const opts = protectCommand.options.map((o) => o.long);
+    expect(opts).toContain("--id");
+    expect(opts).toContain("--target");
+    expect(opts).toContain("--value");
+    expect(opts).toContain("--instruction");
   });
 });
