@@ -2,7 +2,7 @@ import { Command } from "commander";
 import chalk from "chalk";
 import ora from "ora";
 import { ENShell, Network, ActionDecision } from "@enshell/sdk";
-import { getSigner } from "../config.js";
+import { getSigner, walletHint } from "../config.js";
 
 export const protectCommand = new Command("protect")
   .description("Submit an action through the ENShell firewall with encryption and relay")
@@ -20,7 +20,7 @@ export const protectCommand = new Command("protect")
       });
 
       // Step 1: Encrypt + relay + submit
-      const submitSpinner = ora("Encrypting instruction and submitting action...").start();
+      const submitSpinner = ora(`Encrypting and submitting action${walletHint()}...`).start();
       const result = await client.protect(opts.id, {
         instruction: opts.instruction,
         tx: {

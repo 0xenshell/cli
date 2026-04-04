@@ -2,7 +2,7 @@ import { Command } from "commander";
 import chalk from "chalk";
 import ora from "ora";
 import { ENShell, Network } from "@enshell/sdk";
-import { getSigner } from "../config.js";
+import { getSigner, walletHint } from "../config.js";
 
 export const registerCommand = new Command("register")
   .description("Register a new AI agent on the firewall")
@@ -18,7 +18,7 @@ export const registerCommand = new Command("register")
         signer,
       });
 
-      const spinner = ora(`Registering agent "${opts.id}" (creates ${opts.id}.enshell.eth)...`).start();
+      const spinner = ora(`Registering agent "${opts.id}"${walletHint()}...`).start();
       const result = await client.registerAgent(opts.id, {
         agentAddress: opts.agentWallet,
         spendLimit: opts.spendLimit,

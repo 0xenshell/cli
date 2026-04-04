@@ -2,13 +2,13 @@ import { Command } from "commander";
 import chalk from "chalk";
 import ora from "ora";
 import { ENShell, Network } from "@enshell/sdk";
-import { getSigner } from "../config.js";
+import { getSigner, walletHint } from "../config.js";
 
 export const deactivateCommand = new Command("deactivate")
   .description("Deactivate (freeze) an agent")
   .requiredOption("--id <agentId>", "Agent identifier")
   .action(async (opts) => {
-    const spinner = ora("Deactivating agent...").start();
+    const spinner = ora(`Deactivating agent${walletHint()}...`).start();
 
     try {
       const signer = await getSigner();

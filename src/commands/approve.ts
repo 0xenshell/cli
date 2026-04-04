@@ -2,13 +2,13 @@ import { Command } from "commander";
 import chalk from "chalk";
 import ora from "ora";
 import { ENShell, Network } from "@enshell/sdk";
-import { getSigner } from "../config.js";
+import { getSigner, walletHint } from "../config.js";
 
 export const approveCommand = new Command("approve")
   .description("Approve a queued action")
   .requiredOption("--action-id <id>", "Queued action ID")
   .action(async (opts) => {
-    const spinner = ora("Approving action...").start();
+    const spinner = ora(`Approving action${walletHint()}...`).start();
 
     try {
       const signer = await getSigner();

@@ -3,7 +3,7 @@ import { keccak256, toUtf8Bytes } from "ethers";
 import chalk from "chalk";
 import ora from "ora";
 import { ENShell, Network } from "@enshell/sdk";
-import { getSigner } from "../config.js";
+import { getSigner, walletHint } from "../config.js";
 
 export const submitCommand = new Command("submit")
   .description("Submit an action through the firewall (queued for CRE analysis)")
@@ -13,7 +13,7 @@ export const submitCommand = new Command("submit")
   .option("--data <hex>", "Calldata (hex)", "0x")
   .requiredOption("--instruction <text>", "Human-readable instruction")
   .action(async (opts) => {
-    const spinner = ora("Submitting action...").start();
+    const spinner = ora(`Submitting action${walletHint()}...`).start();
 
     try {
       const signer = await getSigner();
