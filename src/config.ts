@@ -14,6 +14,11 @@ export function getWalletMode(): WalletMode {
   return _walletMode;
 }
 
+/** Returns a hint string for commands when wallet approval is needed. */
+export function walletHint(): string {
+  return _walletMode === "walletconnect" ? " — approve in your wallet" : "";
+}
+
 export function getProvider(): JsonRpcProvider {
   const rpcUrl = process.env.ENSHELL_RPC_URL || "https://ethereum-sepolia-rpc.publicnode.com";
   return new JsonRpcProvider(rpcUrl);
