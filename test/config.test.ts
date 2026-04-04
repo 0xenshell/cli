@@ -17,7 +17,7 @@ describe("config", () => {
     vi.stubEnv("ENSHELL_CONTRACT_ADDRESS", "");
     const { getContractAddress } = await import("../src/config.js");
     // Should return the default Sepolia contract address
-    expect(getContractAddress()).toBe("0x93F0326C4F3A9a2e0209f5faAdFf375493027Cc9");
+    expect(getContractAddress()).toBe("0xf78910b66AE2f7E33038578e1500b157776a0597");
   });
 
   it("getContractAddress returns address when set", async () => {
