@@ -4,11 +4,11 @@ import ora from "ora";
 import { ENShell, Network } from "@enshell/sdk";
 import { getSigner, walletHint } from "../config.js";
 
-export const reactivateCommand = new Command("reactivate")
-  .description("Reactivate a frozen agent")
+export const freezeCommand = new Command("freeze")
+  .description("Freeze an agent")
   .requiredOption("--id <agentId>", "Agent identifier")
   .action(async (opts) => {
-    const spinner = ora(`Reactivating agent${walletHint()}...`).start();
+    const spinner = ora(`Freezing agent${walletHint()}...`).start();
 
     try {
       const signer = await getSigner();
@@ -17,12 +17,12 @@ export const reactivateCommand = new Command("reactivate")
         signer,
       });
 
-      const { txHash } = await client.reactivateAgent(opts.id);
+      const { txHash } = await client.deactivateAgent(opts.id);
 
-      spinner.succeed(chalk.green(`Agent "${opts.id}" reactivated`));
+      spinner.succeed(chalk.green(`Agent "${opts.id}" frozen`));
       console.log(chalk.gray(`  tx: https://sepolia.etherscan.io/tx/${txHash}`));
     } catch (err: any) {
-      spinner.fail(chalk.red(`Reactivation failed: ${err.message}`));
+      spinner.fail(chalk.red(`Freeze failed: ${err.message}`));
       process.exit(1);
     }
   });

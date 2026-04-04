@@ -11,8 +11,8 @@ import { listCommand } from "./commands/list.js";
 import { inspectCommand } from "./commands/inspect.js";
 
 
-import { deactivateCommand } from "./commands/deactivate.js";
-import { reactivateCommand } from "./commands/reactivate.js";
+import { freezeCommand } from "./commands/freeze.js";
+import { activateCommand } from "./commands/activate.js";
 import { protectCommand } from "./commands/protect.js";
 import { connectCommand } from "./commands/connect.js";
 import { disconnectCommand } from "./commands/disconnect.js";
@@ -40,8 +40,8 @@ program.addCommand(registerCommand);
 program.addCommand(listCommand);
 program.addCommand(inspectCommand);
 
-program.addCommand(deactivateCommand);
-program.addCommand(reactivateCommand);
+program.addCommand(freezeCommand);
+program.addCommand(activateCommand);
 program.addCommand(protectCommand);
 
 program.parseAsync().then(() => process.exit(0));

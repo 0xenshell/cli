@@ -3,8 +3,8 @@ import { registerCommand } from "../src/commands/register.js";
 import { listCommand } from "../src/commands/list.js";
 import { inspectCommand } from "../src/commands/inspect.js";
 
-import { deactivateCommand } from "../src/commands/deactivate.js";
-import { reactivateCommand } from "../src/commands/reactivate.js";
+import { freezeCommand } from "../src/commands/freeze.js";
+import { activateCommand } from "../src/commands/activate.js";
 import { protectCommand } from "../src/commands/protect.js";
 
 describe("commands", () => {
@@ -26,15 +26,15 @@ describe("commands", () => {
     expect(opts).toContain("--id");
   });
 
-  it("deactivate command has correct name and required options", () => {
-    expect(deactivateCommand.name()).toBe("deactivate");
-    const opts = deactivateCommand.options.map((o) => o.long);
+  it("freeze command has correct name and required options", () => {
+    expect(freezeCommand.name()).toBe("freeze");
+    const opts = freezeCommand.options.map((o) => o.long);
     expect(opts).toContain("--id");
   });
 
-  it("reactivate command has correct name and required options", () => {
-    expect(reactivateCommand.name()).toBe("reactivate");
-    const opts = reactivateCommand.options.map((o) => o.long);
+  it("activate command has correct name and required options", () => {
+    expect(activateCommand.name()).toBe("activate");
+    const opts = activateCommand.options.map((o) => o.long);
     expect(opts).toContain("--id");
   });
 
