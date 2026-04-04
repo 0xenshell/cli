@@ -34,7 +34,7 @@ async function initProvider(): Promise<InstanceType<typeof EthereumProvider>> {
     storage,
     rpcMap: {
       [SEPOLIA_CHAIN_ID]:
-        process.env.ENSHELL_RPC_URL || "https://rpc.sepolia.org",
+        process.env.ENSHELL_RPC_URL || "https://ethereum-sepolia-rpc.publicnode.com",
     },
   });
 

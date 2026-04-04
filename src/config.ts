@@ -15,7 +15,7 @@ export function getWalletMode(): WalletMode {
 }
 
 export function getProvider(): JsonRpcProvider {
-  const rpcUrl = process.env.ENSHELL_RPC_URL || "https://rpc.sepolia.org";
+  const rpcUrl = process.env.ENSHELL_RPC_URL || "https://ethereum-sepolia-rpc.publicnode.com";
   return new JsonRpcProvider(rpcUrl);
 }
 
@@ -26,7 +26,7 @@ export async function getSigner(): Promise<Signer> {
 export function getContractAddress(): string {
   const addr = process.env.ENSHELL_CONTRACT_ADDRESS;
   if (!addr)
-    return "0xeb91387Ea4B7ADF8fA4901B22B2B72d7c54cbF13"; // Sepolia default
+    return "0x41E40B92402cEC05c372b2CBE53859e7c61afDFE"; // Sepolia default
   return addr;
 }
 
