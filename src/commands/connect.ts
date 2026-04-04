@@ -15,6 +15,7 @@ export const connectCommand = new Command("connect")
       console.log(
         chalk.gray("  Session saved. You can now run any enshell command.\n"),
       );
+      process.exit(0);
     } catch (err: any) {
       spinner.fail(chalk.red(`Connection failed: ${err.message}`));
       process.exit(1);
