@@ -8,6 +8,7 @@ import { approveCommand } from "./commands/approve.js";
 import { rejectCommand } from "./commands/reject.js";
 import { deactivateCommand } from "./commands/deactivate.js";
 import { reactivateCommand } from "./commands/reactivate.js";
+import { protectCommand } from "./commands/protect.js";
 
 const program = new Command();
 
@@ -24,5 +25,6 @@ program.addCommand(approveCommand);
 program.addCommand(rejectCommand);
 program.addCommand(deactivateCommand);
 program.addCommand(reactivateCommand);
+program.addCommand(protectCommand);
 
 program.parse();
