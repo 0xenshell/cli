@@ -1,0 +1,47 @@
+name: CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+
+jobs:
+  test-and-coverage:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22.10.0"
+
+      - name: Checkout SDK (local dependency)
+        uses: actions/checkout@v4
+        with:
+          repository: 0xenshell/sdk
+          path: enshell-sdk
+
+      - name: Build SDK
+        run: npm install && npm run build
+        working-directory: enshell-sdk
+
+      - name: Install dependencies
+        run: rm -f package-lock.json && npm install
+
+      - name: Build
+        run: npm run build
+
+      - name: Run tests
+        run: npm test
+
+      - name: Run coverage
+        run: npm run test:coverage
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          slug: 0xenshell/cli
