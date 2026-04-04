@@ -3,8 +3,6 @@ import { registerCommand } from "../src/commands/register.js";
 import { listCommand } from "../src/commands/list.js";
 import { inspectCommand } from "../src/commands/inspect.js";
 import { submitCommand } from "../src/commands/submit.js";
-import { approveCommand } from "../src/commands/approve.js";
-import { rejectCommand } from "../src/commands/reject.js";
 import { deactivateCommand } from "../src/commands/deactivate.js";
 import { reactivateCommand } from "../src/commands/reactivate.js";
 import { protectCommand } from "../src/commands/protect.js";
@@ -35,18 +33,6 @@ describe("commands", () => {
     expect(opts).toContain("--target");
     expect(opts).toContain("--value");
     expect(opts).toContain("--instruction");
-  });
-
-  it("approve command has correct name and required options", () => {
-    expect(approveCommand.name()).toBe("approve");
-    const opts = approveCommand.options.map((o) => o.long);
-    expect(opts).toContain("--action-id");
-  });
-
-  it("reject command has correct name and required options", () => {
-    expect(rejectCommand.name()).toBe("reject");
-    const opts = rejectCommand.options.map((o) => o.long);
-    expect(opts).toContain("--action-id");
   });
 
   it("deactivate command has correct name and required options", () => {

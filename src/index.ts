@@ -10,8 +10,7 @@ import { registerCommand } from "./commands/register.js";
 import { listCommand } from "./commands/list.js";
 import { inspectCommand } from "./commands/inspect.js";
 import { submitCommand } from "./commands/submit.js";
-import { approveCommand } from "./commands/approve.js";
-import { rejectCommand } from "./commands/reject.js";
+
 import { deactivateCommand } from "./commands/deactivate.js";
 import { reactivateCommand } from "./commands/reactivate.js";
 import { protectCommand } from "./commands/protect.js";
@@ -41,8 +40,7 @@ program.addCommand(registerCommand);
 program.addCommand(listCommand);
 program.addCommand(inspectCommand);
 program.addCommand(submitCommand);
-program.addCommand(approveCommand);
-program.addCommand(rejectCommand);
+
 program.addCommand(deactivateCommand);
 program.addCommand(reactivateCommand);
 program.addCommand(protectCommand);
