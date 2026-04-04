@@ -1,4 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
+import { NETWORK_CONFIG, Network } from "@enshell/sdk";
 
 describe("config", () => {
   beforeEach(() => {
@@ -9,15 +10,13 @@ describe("config", () => {
     vi.stubEnv("ENSHELL_RPC_URL", "");
     const { getProvider } = await import("../src/config.js");
     const provider = getProvider();
-    // Should not throw — defaults to rpc.sepolia.org
     expect(provider).toBeDefined();
   });
 
-  it("getContractAddress returns default when ENSHELL_CONTRACT_ADDRESS is not set", async () => {
+  it("getContractAddress returns SDK default when ENSHELL_CONTRACT_ADDRESS is not set", async () => {
     vi.stubEnv("ENSHELL_CONTRACT_ADDRESS", "");
     const { getContractAddress } = await import("../src/config.js");
-    // Should return the default Sepolia contract address
-    expect(getContractAddress()).toBe("0x3886791bd82ff55294FaaEcCe3624A2376978dB2");
+    expect(getContractAddress()).toBe(NETWORK_CONFIG[Network.SEPOLIA].firewallAddress);
   });
 
   it("getContractAddress returns address when set", async () => {

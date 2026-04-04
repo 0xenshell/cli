@@ -1,6 +1,6 @@
 import "dotenv/config";
 import { JsonRpcProvider, Signer } from "ethers";
-import { getFirewallContract } from "@enshell/sdk";
+import { getFirewallContract, Network, NETWORK_CONFIG } from "@enshell/sdk";
 import { resolveSigner, WalletMode } from "./wallets/index.js";
 
 /** Global wallet mode — set by --wallet flag in index.ts */
@@ -38,10 +38,7 @@ export async function getSigner(): Promise<Signer> {
 }
 
 export function getContractAddress(): string {
-  const addr = process.env.ENSHELL_CONTRACT_ADDRESS;
-  if (!addr)
-    return "0x3886791bd82ff55294FaaEcCe3624A2376978dB2"; // Sepolia default
-  return addr;
+  return process.env.ENSHELL_CONTRACT_ADDRESS || NETWORK_CONFIG[Network.SEPOLIA].firewallAddress;
 }
 
 /** Read-only contract instance (no signer needed). */
