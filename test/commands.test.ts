@@ -2,7 +2,7 @@ import { describe, it, expect } from "vitest";
 import { registerCommand } from "../src/commands/register.js";
 import { listCommand } from "../src/commands/list.js";
 import { inspectCommand } from "../src/commands/inspect.js";
-import { submitCommand } from "../src/commands/submit.js";
+
 import { deactivateCommand } from "../src/commands/deactivate.js";
 import { reactivateCommand } from "../src/commands/reactivate.js";
 import { protectCommand } from "../src/commands/protect.js";
@@ -24,15 +24,6 @@ describe("commands", () => {
     expect(inspectCommand.name()).toBe("inspect");
     const opts = inspectCommand.options.map((o) => o.long);
     expect(opts).toContain("--id");
-  });
-
-  it("submit command has correct name and required options", () => {
-    expect(submitCommand.name()).toBe("submit");
-    const opts = submitCommand.options.map((o) => o.long);
-    expect(opts).toContain("--id");
-    expect(opts).toContain("--target");
-    expect(opts).toContain("--value");
-    expect(opts).toContain("--instruction");
   });
 
   it("deactivate command has correct name and required options", () => {

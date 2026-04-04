@@ -9,7 +9,7 @@ import type { WalletMode } from "./wallets/index.js";
 import { registerCommand } from "./commands/register.js";
 import { listCommand } from "./commands/list.js";
 import { inspectCommand } from "./commands/inspect.js";
-import { submitCommand } from "./commands/submit.js";
+
 
 import { deactivateCommand } from "./commands/deactivate.js";
 import { reactivateCommand } from "./commands/reactivate.js";
@@ -39,7 +39,6 @@ program.addCommand(disconnectCommand);
 program.addCommand(registerCommand);
 program.addCommand(listCommand);
 program.addCommand(inspectCommand);
-program.addCommand(submitCommand);
 
 program.addCommand(deactivateCommand);
 program.addCommand(reactivateCommand);
