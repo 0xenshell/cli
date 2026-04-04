@@ -11,9 +11,10 @@ export const rejectCommand = new Command("reject")
     const spinner = ora("Rejecting action...").start();
 
     try {
+      const signer = await getSigner();
       const client = new ENShell({
         network: Network.SEPOLIA,
-        signer: getSigner(),
+        signer,
         contractAddress: getContractAddress(),
       });
 

@@ -11,9 +11,10 @@ export const deactivateCommand = new Command("deactivate")
     const spinner = ora("Deactivating agent...").start();
 
     try {
+      const signer = await getSigner();
       const client = new ENShell({
         network: Network.SEPOLIA,
-        signer: getSigner(),
+        signer,
         contractAddress: getContractAddress(),
       });
 

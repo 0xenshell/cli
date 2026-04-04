@@ -13,9 +13,10 @@ export const protectCommand = new Command("protect")
   .requiredOption("--instruction <text>", "Human-readable instruction")
   .action(async (opts) => {
     try {
+      const signer = await getSigner();
       const client = new ENShell({
         network: Network.SEPOLIA,
-        signer: getSigner(),
+        signer,
         contractAddress: getContractAddress(),
       });
 

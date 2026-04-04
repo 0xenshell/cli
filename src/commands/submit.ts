@@ -16,9 +16,10 @@ export const submitCommand = new Command("submit")
     const spinner = ora("Submitting action...").start();
 
     try {
+      const signer = await getSigner();
       const client = new ENShell({
         network: Network.SEPOLIA,
-        signer: getSigner(),
+        signer,
         contractAddress: getContractAddress(),
       });
 

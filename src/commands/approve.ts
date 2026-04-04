@@ -11,9 +11,10 @@ export const approveCommand = new Command("approve")
     const spinner = ora("Approving action...").start();
 
     try {
+      const signer = await getSigner();
       const client = new ENShell({
         network: Network.SEPOLIA,
-        signer: getSigner(),
+        signer,
         contractAddress: getContractAddress(),
       });
 

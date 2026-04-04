@@ -12,9 +12,10 @@ export const registerCommand = new Command("register")
   .option("--targets <addresses...>", "Allowed target addresses")
   .action(async (opts) => {
     try {
+      const signer = await getSigner();
       const client = new ENShell({
         network: Network.SEPOLIA,
-        signer: getSigner(),
+        signer,
         contractAddress: getContractAddress(),
       });
 

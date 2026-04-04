@@ -11,9 +11,10 @@ export const reactivateCommand = new Command("reactivate")
     const spinner = ora("Reactivating agent...").start();
 
     try {
+      const signer = await getSigner();
       const client = new ENShell({
         network: Network.SEPOLIA,
-        signer: getSigner(),
+        signer,
         contractAddress: getContractAddress(),
       });
 
