@@ -1,7 +1,8 @@
 import { Command } from "commander";
 import chalk from "chalk";
 import ora from "ora";
-import { getContract } from "../config.js";
+import { ENShell, Network } from "@enshell/sdk";
+import { getSigner, getContractAddress } from "../config.js";
 
 export const reactivateCommand = new Command("reactivate")
   .description("Reactivate a frozen agent")
@@ -10,14 +11,16 @@ export const reactivateCommand = new Command("reactivate")
     const spinner = ora("Reactivating agent...").start();
 
     try {
-      const contract = getContract();
-      const tx = await contract.reactivateAgent(opts.id);
+      const client = new ENShell({
+        network: Network.SEPOLIA,
+        signer: getSigner(),
+        contractAddress: getContractAddress(),
+      });
 
-      spinner.text = "Waiting for confirmation...";
-      const receipt = await tx.wait();
+      const { txHash } = await client.reactivateAgent(opts.id);
 
       spinner.succeed(chalk.green(`Agent "${opts.id}" reactivated`));
-      console.log(chalk.gray(`  tx: https://sepolia.etherscan.io/tx/${receipt.hash}`));
+      console.log(chalk.gray(`  tx: https://sepolia.etherscan.io/tx/${txHash}`));
     } catch (err: any) {
       spinner.fail(chalk.red(`Reactivation failed: ${err.message}`));
       process.exit(1);
