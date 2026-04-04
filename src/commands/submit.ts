@@ -47,6 +47,7 @@ export const submitCommand = new Command("submit")
       spinner.succeed(
         chalk.green(`Action #${actionId} queued for CRE analysis`),
       );
+      console.log(chalk.gray(`  tx: https://sepolia.etherscan.io/tx/${receipt.hash}`));
     } catch (err: any) {
       spinner.fail(chalk.red(`Submission failed: ${err.message}`));
       process.exit(1);

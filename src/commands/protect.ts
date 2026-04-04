@@ -32,6 +32,7 @@ export const protectCommand = new Command("protect")
       submitSpinner.succeed(
         chalk.green(`Action #${result.actionId} queued (hash: ${result.instructionHash.slice(0, 18)}...)`),
       );
+      console.log(chalk.gray(`  tx: https://sepolia.etherscan.io/tx/${result.txHash}`));
 
       // Step 2: Wait for CRE resolution
       const waitSpinner = ora("Waiting for CRE oracle resolution...").start();

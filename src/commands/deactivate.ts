@@ -14,9 +14,10 @@ export const deactivateCommand = new Command("deactivate")
       const tx = await contract.deactivateAgent(opts.id);
 
       spinner.text = "Waiting for confirmation...";
-      await tx.wait();
+      const receipt = await tx.wait();
 
       spinner.succeed(chalk.green(`Agent "${opts.id}" deactivated`));
+      console.log(chalk.gray(`  tx: https://sepolia.etherscan.io/tx/${receipt.hash}`));
     } catch (err: any) {
       spinner.fail(chalk.red(`Deactivation failed: ${err.message}`));
       process.exit(1);

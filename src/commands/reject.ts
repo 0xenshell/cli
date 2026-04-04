@@ -14,9 +14,10 @@ export const rejectCommand = new Command("reject")
       const tx = await contract.rejectAction(BigInt(opts.actionId));
 
       spinner.text = "Waiting for confirmation...";
-      await tx.wait();
+      const receipt = await tx.wait();
 
       spinner.succeed(chalk.green(`Action #${opts.actionId} rejected`));
+      console.log(chalk.gray(`  tx: https://sepolia.etherscan.io/tx/${receipt.hash}`));
     } catch (err: any) {
       spinner.fail(chalk.red(`Rejection failed: ${err.message}`));
       process.exit(1);

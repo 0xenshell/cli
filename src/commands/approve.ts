@@ -14,9 +14,10 @@ export const approveCommand = new Command("approve")
       const tx = await contract.approveAction(BigInt(opts.actionId));
 
       spinner.text = "Waiting for confirmation...";
-      await tx.wait();
+      const receipt = await tx.wait();
 
       spinner.succeed(chalk.green(`Action #${opts.actionId} approved`));
+      console.log(chalk.gray(`  tx: https://sepolia.etherscan.io/tx/${receipt.hash}`));
     } catch (err: any) {
       spinner.fail(chalk.red(`Approval failed: ${err.message}`));
       process.exit(1);

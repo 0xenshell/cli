@@ -20,17 +20,21 @@ export const registerCommand = new Command("register")
 
       // Step 1: Create ENS subdomain
       const ensSpinner = ora(`Creating ENS subdomain ${opts.id}.enshell.eth...`).start();
-      await client.createAgentSubdomain(opts.id);
+      const ensResult = await client.createAgentSubdomain(opts.id);
       ensSpinner.succeed(chalk.green(`ENS subdomain ${opts.id}.enshell.eth created`));
+      if (ensResult.txHash) {
+        console.log(chalk.gray(`  tx: https://sepolia.etherscan.io/tx/${ensResult.txHash}`));
+      }
 
       // Step 2: Register on firewall
       const fwSpinner = ora("Registering agent on ENShell Firewall...").start();
-      await client.registerAgentOnChain(opts.id, {
+      const fwResult = await client.registerAgentOnChain(opts.id, {
         agentAddress: opts.agentWallet,
         spendLimit: opts.spendLimit,
         allowedTargets: opts.targets,
       });
       fwSpinner.succeed(chalk.green(`Agent "${opts.id}" registered on firewall`));
+      console.log(chalk.gray(`  tx: https://sepolia.etherscan.io/tx/${fwResult.txHash}`));
     } catch (err: any) {
       console.error(chalk.red(`\nRegistration failed: ${err.message}`));
       process.exit(1);
