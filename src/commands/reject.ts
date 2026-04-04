@@ -1,7 +1,8 @@
 import { Command } from "commander";
 import chalk from "chalk";
 import ora from "ora";
-import { getContract } from "../config.js";
+import { ENShell, Network } from "@enshell/sdk";
+import { getSigner, getContractAddress } from "../config.js";
 
 export const rejectCommand = new Command("reject")
   .description("Reject a queued action")
@@ -10,14 +11,16 @@ export const rejectCommand = new Command("reject")
     const spinner = ora("Rejecting action...").start();
 
     try {
-      const contract = getContract();
-      const tx = await contract.rejectAction(BigInt(opts.actionId));
+      const client = new ENShell({
+        network: Network.SEPOLIA,
+        signer: getSigner(),
+        contractAddress: getContractAddress(),
+      });
 
-      spinner.text = "Waiting for confirmation...";
-      const receipt = await tx.wait();
+      const { txHash } = await client.rejectAction(BigInt(opts.actionId));
 
       spinner.succeed(chalk.green(`Action #${opts.actionId} rejected`));
-      console.log(chalk.gray(`  tx: https://sepolia.etherscan.io/tx/${receipt.hash}`));
+      console.log(chalk.gray(`  tx: https://sepolia.etherscan.io/tx/${txHash}`));
     } catch (err: any) {
       spinner.fail(chalk.red(`Rejection failed: ${err.message}`));
       process.exit(1);

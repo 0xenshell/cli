@@ -1,8 +1,9 @@
 import { Command } from "commander";
-import { parseEther, keccak256, toUtf8Bytes } from "ethers";
+import { keccak256, toUtf8Bytes } from "ethers";
 import chalk from "chalk";
 import ora from "ora";
-import { getContract } from "../config.js";
+import { ENShell, Network } from "@enshell/sdk";
+import { getSigner, getContractAddress } from "../config.js";
 
 export const submitCommand = new Command("submit")
   .description("Submit an action through the firewall (queued for CRE analysis)")
@@ -15,39 +16,26 @@ export const submitCommand = new Command("submit")
     const spinner = ora("Submitting action...").start();
 
     try {
-      const contract = getContract();
+      const client = new ENShell({
+        network: Network.SEPOLIA,
+        signer: getSigner(),
+        contractAddress: getContractAddress(),
+      });
+
       const instructionHash = keccak256(toUtf8Bytes(opts.instruction));
 
-      const tx = await contract.submitAction(
+      const result = await client.submitAction(
         opts.id,
         opts.target,
-        parseEther(opts.value),
+        opts.value,
         opts.data,
         instructionHash,
       );
 
-      spinner.text = "Waiting for confirmation...";
-      const receipt = await tx.wait();
-
-      const iface = contract.interface;
-      let actionId = "?";
-
-      for (const log of receipt.logs) {
-        try {
-          const parsed = iface.parseLog(log);
-          if (parsed?.name === "ActionSubmitted") {
-            actionId = parsed.args[0].toString();
-            break;
-          }
-        } catch {
-          // Skip logs from other contracts
-        }
-      }
-
       spinner.succeed(
-        chalk.green(`Action #${actionId} queued for CRE analysis`),
+        chalk.green(`Action #${result.actionId} queued for CRE analysis`),
       );
-      console.log(chalk.gray(`  tx: https://sepolia.etherscan.io/tx/${receipt.hash}`));
+      console.log(chalk.gray(`  tx: https://sepolia.etherscan.io/tx/${result.txHash}`));
     } catch (err: any) {
       spinner.fail(chalk.red(`Submission failed: ${err.message}`));
       process.exit(1);
