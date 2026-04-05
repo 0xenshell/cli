@@ -1,6 +1,9 @@
 # ENShell CLI
 
 [![codecov](https://codecov.io/gh/0xenshell/cli/graph/badge.svg?token=VUCSULQGAG)](https://codecov.io/gh/0xenshell/cli)
+[![CodeQuill – Verified authorship](https://app.codequill.xyz/badges/claim/4eb76b8e-72e9-433b-a424-707c55c2a1ea)](https://app.codequill.xyz/explore/0xenshell/cli)
+[![CodeQuill – Latest snapshot](https://app.codequill.xyz/badges/snapshot/4eb76b8e-72e9-433b-a424-707c55c2a1ea)](https://app.codequill.xyz/explore/0xenshell/cli)
+[![CodeQuill Trust Index](https://app.codequill.xyz/badges/trust/4eb76b8e-72e9-433b-a424-707c55c2a1ea)](https://app.codequill.xyz/explore/0xenshell/cli)
 
 Command-line interface for **ENShell**, an on-chain firewall for AI agents. Register agents, submit actions through the firewall, approve or reject queued actions, and manage agent lifecycle. Built with Commander.js and the [@enshell/sdk](https://www.npmjs.com/package/@enshell/sdk).
 
